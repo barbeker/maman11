@@ -16,17 +16,20 @@
 #define SYS_ERR -1
 
 void binsem_init(sem_t *s, int init_val) {
+    /* semaphore pointer is invalid */
     if (s == NULL) { return; }
     int initVal = (0 == init_val)? 0 : 1;
     *s = initVal;
 }
 
 void binsem_up(sem_t *s) {
+    /* semaphore pointer is invalid */
     if (s == NULL) { return; }
     *s = 1;
 }
 
 int binsem_down(sem_t *s) {
+    /* semaphore pointer is invalid */
     if (s == NULL) { return -1; }
     while (0 == xchg(s, 0)) {
         kill(getpid(), SIGALRM);
