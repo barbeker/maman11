@@ -18,9 +18,9 @@
 
 static ucontext_t dummyUcontext;
 static ut_slot_t  threadTable[MAX_TAB_SIZE];
-static volatile tid_t currThreadIdx   = 0;
-static volatile tid_t sapwnThreadsNum = 0;
-static volatile int threadTableSize   = 0;
+static volatile tid_t currThreadIdx          = 0;
+static volatile tid_t sapwnThreadsNum        = 0;
+static volatile unsigned int threadTableSize = 0;
 
 void Handler(int signal);
 int  InitSignalHandler();
@@ -30,7 +30,6 @@ void ContextSwitcher() {
 	tid_t oldThreadIdx = currThreadIdx;
 	tid_t newThreadIdx = (oldThreadIdx + 1) % sapwnThreadsNum;
 	currThreadIdx = newThreadIdx;
-	//printf("in signal handler: switching from %d to %d\n", oldThreadIdx, newThreadIdx);
 	swapcontext(&threadTable[oldThreadIdx].uc, &threadTable[newThreadIdx].uc);}
 
 int InitSignalHandler() {
