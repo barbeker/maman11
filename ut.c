@@ -52,6 +52,7 @@ int InitSignalHandler() {
         setitimer(ITIMER_VIRTUAL, &itv, NULL) < 0  ||
         sigaction(SIGALRM, &sa, NULL)         < 0  ) {
         perror("error on signal handler installation");
+        exit(1);
         return SYS_ERR;
 }
 
@@ -88,7 +89,7 @@ tid_t ut_spawn_thread(void (*func)(int), int arg) {
         perror("thread table size is 0");
         return SYS_ERR;
     }
-    if (spawnThreadIdx > threadTableSize) {
+    if (spawnThreadIdx >= threadTableSize) {
         perror("thread table size is full");
         return TAB_FULL;
     }
