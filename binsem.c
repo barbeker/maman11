@@ -28,9 +28,9 @@ void binsem_up(sem_t *s) {
 
 int binsem_down(sem_t *s) {
     if (s == NULL) { return -1; }
-    while (0 == xchg(s, 0))
+    while (0 == xchg(s, 0)) {
         kill(getpid(), SIGALRM);
-    if (errno != 0) { return SYS_ERR; }
-
+        if (errno != 0) { return SYS_ERR; }
+    }
     return 0;
 }
