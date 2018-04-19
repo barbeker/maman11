@@ -1,15 +1,10 @@
-#all: binsem.a ut.a ph 
+all: binsem.a ut.a
 FLAGS = -Wall  -L./ -m32
-
-ph: ph.c  binsem.a ut.a
-	gcc ${FLAGS} ph.c -lbinsem -lut -o ph
-
 
 binsem.a:
 	gcc $(FLAGS)  -c binsem.c
 	ar rcu libbinsem.a binsem.o
 	ranlib libbinsem.a 
-
 
 ut.a:
 	gcc $(FLAGS)  -c ut.c
