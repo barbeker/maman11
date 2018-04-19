@@ -144,7 +144,7 @@ int ut_start(void) {
 
 unsigned long ut_get_vtime(tid_t tid) {
 	/*check thread is in thread table*/
-	if (threadTableSize == 0 || tid > threadTableSize || tid > sapwnThreadsNum) {
+	if (threadTableSize == 0 || tid >= threadTableSize || tid >= sapwnThreadsNum) {
 		perror("there is no such thread in thread table");
 		return SYS_ERR;
 	}
